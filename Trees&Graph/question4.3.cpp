@@ -1,13 +1,12 @@
 /*---------------------------------------------------------------------------------------------
                     Chapter-4    Trees And Graph 
-    4.2)   Minimal Tree: Given a sorted array(incre
-    cout<asing order) array with unique integer elements, 
-                         write an algorithm to create a binary tree search tree wit minimal height.
+    4.3) List of Depths: Given the binary tree, design an algorithm which create linked list of
+                        all the node at each dept (eg,if you have a tree of depth D,you'll have
+                        D linked list)
 
 --------------------------------------------------------------------------------------------*/
 #include <bits/stdc++.h>
 using namespace std;
-#include "tree.h"
 #include "supportFunction.h"
 
 void sol(TreeNode *root, int level, vector<forward_list<TreeNode *>> &ans)

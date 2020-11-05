@@ -1,7 +1,5 @@
-#include <bits/stdc++.h>
-using namespace std;
+
 #include "supportFunction.h"
-#include "tree.h"
 
 vector<int> returnRandomNeighbour(int n, int v)
 {
@@ -44,6 +42,7 @@ TreeNode *hero(vector<int> &vec, int l, int r)
     root->right = hero(vec, mid + 1, r);
     return root;
 }
+
 void createBST(vector<int> vec, TreeNode *root)
 {
     root = hero(vec, 0, vec.size());
