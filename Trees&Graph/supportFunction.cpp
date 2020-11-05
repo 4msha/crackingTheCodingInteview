@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #include "supportFunction.h"
+#include "tree.h"
 
 vector<int> returnRandomNeighbour(int n, int v)
 {
@@ -31,4 +32,28 @@ map<int, vector<int>> createRandomGraph(int n)
         map[i] = vec;
     }
     return map;
+}
+
+TreeNode *hero(vector<int> &vec, int l, int r)
+{
+    if (r <= l)
+        return NULL;
+    int mid = l + (r - l) / 2;
+    TreeNode *root = new TreeNode(vec[mid]);
+    root->left = hero(vec, l, mid);
+    root->right = hero(vec, mid + 1, r);
+    return root;
+}
+void createBST(vector<int> vec, TreeNode *root)
+{
+    root = hero(vec, 0, vec.size());
+}
+
+void display(TreeNode *root)
+{
+    if (root == NULL)
+        return;
+    display(root->left);
+    cout << root->val << "    ";
+    display(root->right);
 }
