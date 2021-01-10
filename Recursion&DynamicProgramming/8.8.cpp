@@ -1,38 +1,53 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void permutation(int j, int n, string &str)
+void permutation(map<char, int> &strMap, string prefix, int remainder, vector<string> &result)
 {
-
-    // // Sort the string in lexicographically
-    // // ascennding order
-    // sort(str.begin(), str.end());
-
-    // // Keep printing next permutation while there
-    // // is next permutation
-    // do {
-    //    cout << str << endl;
-    // } while (next_permutation(str.begin(), str.end()));
-    if (j == n - 1)
+    if (remainder == 0)
     {
-        cout << str << endl;
+        result.emplace_back(prefix);
         return;
     }
-    for (int i{j}; i < n; i++)
+
+    for (auto &x : strMap)
     {
-        swap(str[j], str[i]);
-        if (str[i] != str[j] || i == j)
+        if (x.second > 0)
         {
-            permutation(j + 1, n, str);
+            char first = x.first;
+            x.second -= 1;
+            permutation(strMap, prefix + first, remainder - 1, result);
+            x.second += 1;
         }
-        swap(str[j], str[i]);
     }
 }
 
+map<char, int> createMap(string str)
+{
+    map<char, int> strMap;
+
+    for (auto x : str)
+    {
+        strMap[x] += 1;
+    }
+
+    return strMap;
+}
 int main()
 {
     string str;
     cin >> str;
 
-    permutation(0, str.length(), str);
+    map<char, int> strMap = createMap(str);
+
+    string prefix = "";
+
+    vector<string> result;
+
+    permutation(strMap, prefix, str.length(), result);
+
+    for (auto &x : result)
+    {
+        cout << x << endl;
+    }
+    return 0;
 }
