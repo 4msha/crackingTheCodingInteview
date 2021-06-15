@@ -39,17 +39,34 @@ using namespace std;
 //     }
 // };
 
-void towerOfHanoi(int n, int i, int mid, int f)
+map<string, vector<string>> mp;
+
+vector<string> towerOfHanoi(int n, int i, int mid, int f)
 {
+    vector<string> vec;
     if (n == 1)
     {
+        string temp = to_string(i) + " -> " + to_string(f);
+        vec.emplace_back(temp);
         cout << i << " -> " << f << endl;
-        return;
+        return vec;
+    }
+    string key = to_string(n) + " " + to_string(i) + " " + to_string(mid) + " " + to_string(f);
+
+    if (mp.find(key) != mp.end())
+    {
+        // cout << "hit\n";
+        return mp[key];
     }
 
-    towerOfHanoi(n - 1, i, f, mid);
+    vector<string> v = towerOfHanoi(n - 1, i, f, mid);
+    string temp = to_string(i) + " -> " + to_string(f);
+    v.emplace_back(temp);
     cout << i << " -> " << f << endl;
-    towerOfHanoi(n - 1, mid, i, f);
+    vector<string> x = towerOfHanoi(n - 1, mid, i, f);
+    v.insert(v.end(), x.begin(), x.end());
+
+    return mp[key] = v;
 }
 
 int main()
@@ -57,5 +74,20 @@ int main()
     int n;
     cin >> n;
 
-    towerOfHanoi(n, 1, 2, 3);
+    vector<string> ans = towerOfHanoi(n, 1, 2, 3);
+    cout << "\n-------------------------------------------------------\n";
+    for (auto x : ans)
+    {
+        cout << x << endl;
+    }
+
+    // for (auto x : mp)
+    // {
+    //     cout << x.first << "    ";
+    //     for (auto y : x.second)
+    //     {
+    //         cout << y << "   ";
+    //     }
+    //     cout << "\n";
+    // }
 }

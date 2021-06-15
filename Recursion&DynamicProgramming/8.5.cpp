@@ -9,7 +9,7 @@ int multiply(int small, int big)
     if (small == 1)
         return big;
 
-    int s = small / 2;
+    int s = small >> 2;
     int half = multiply(s, big);
     if (small % 2 == 0)
     {

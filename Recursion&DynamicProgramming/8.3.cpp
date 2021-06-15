@@ -26,6 +26,29 @@ int magicIndex(int l, int r)
     return right;
 }
 
+int magicIndexNotDistinct(int l, int r)
+{
+    if (r < l)
+        return -1;
+
+    int mid = l + (r - l) / 2;
+
+    if (mid == arr[mid])
+        return mid;
+
+    int midVal = arr[mid];
+
+    int leftIndex = min(midVal, mid - 1);
+    int left = magicIndexNotDistinct(l, leftIndex);
+    if (left >= 0)
+        return left;
+
+    int rightIndex = max(mid + 1, midVal);
+    int right = magicIndexNotDistinct(rightIndex, r);
+
+    return right;
+}
+
 int main()
 {
     cin >> n;
@@ -36,9 +59,12 @@ int main()
         cin >> arr[i];
     }
 
-    int index = magicIndex(0, n - 1);
+    //int index = magicIndex(0, n - 1);
 
-    cout << index << "   " << arr[index] << endl;
+    int indexdis = magicIndexNotDistinct(0, n - 1);
+
+    //cout << index << "   " << arr[index] << endl;
+    cout << indexdis << "   " << arr[indexdis] << endl;
 
     delete[] arr;
     return 0;

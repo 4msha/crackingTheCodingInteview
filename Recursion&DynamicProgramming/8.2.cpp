@@ -1,63 +1,91 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m;
-int **grid;
-
-bool robotInGrid(int i, int j, vector<char> &path)
+bool getPath(vector<vector<int>> grid, int r, int c, vector<string> &path, map<string, bool> &visited)
 {
-    if (i >= n || j >= m)
+    if (r < 0 || c < 0 || grid[r][c] == -1)
+    {
         return false;
+    }
 
-    if (i == n - 1 && j == m - 1)
+    if (r == 0 && c == 0)
         return true;
 
-    int r, d;
+    string key = to_string(r) + " " + to_string(c);
 
-    if (j + 1 < m && grid[i][j + 1] != -1)
+    if (visited[key])
+        return visited[key];
+
+    if (getPath(grid, r - 1, c, path, visited) || getPath(grid, r, c - 1, path, visited))
     {
-        r = robotInGrid(i, j + 1, path);
-        if (r)
-        {
-            path.emplace_back('r');
-            return true;
-        }
-    }
-    if (i + 1 < n && grid[i + 1][j] != -1)
-    {
-        d = robotInGrid(i + 1, j, path);
-        if (d)
-        {
-            path.emplace_back('d');
-            return true;
-        }
+        path.emplace_back(key);
+        return visited[key] = true;
     }
 
-    grid[i][j] = -1;
-    return false;
+    return visited[key] = false;
 }
+
+// bool robotInGrid(int i, int j, vector<char> &path)
+// {
+//     if (i >= n || j >= m)
+//         return false;
+
+//     if (i == n - 1 && j == m - 1)
+//         return true;
+
+//     int r, d;
+
+//     if (j + 1 < m && grid[i][j + 1] != -1)
+//     {
+//         r = robotInGrid(i, j + 1, path);
+//         if (r)
+//         {
+//             path.emplace_back('r');
+//             return true;
+//         }
+//     }
+//     if (i + 1 < n && grid[i + 1][j] != -1)
+//     {
+//         d = robotInGrid(i + 1, j, path);
+//         if (d)
+//         {
+//             path.emplace_back('d');
+//             return true;
+//         }
+//     }
+
+//     grid[i][j] = -1;
+//     return false;
+// }
 
 int main()
 {
     cout << "enter demension of grid\n";
+    int n, m;
     cin >> n >> m;
-    grid = new int *[n];
-    for (int i = 0; i < n; ++i)
-        grid[i] = new int[m];
+    vector<vector<int>> grid(n, vector<int>(m, 0));
 
-    vector<char> path;
-
-    if (robotInGrid(0, 0, path))
+    for (int i = 0; i < n; i++)
     {
-        cout << "Theres a path which is\n";
-        for (auto &x : path)
+        for (int j = 0; j < m; j++)
         {
-            cout << x << " -> ";
+            cin >> grid[i][j];
         }
     }
 
-    for (int i = 0; i < n; ++i)
-        delete[] grid[i];
-    delete[] grid;
+    map<string, bool> visited;
+    vector<string> path1;
+    path1.emplace_back("0 0");
+
+    if (getPath(grid, n - 1, m - 1, path1, visited))
+    {
+        path1.emplace_back(to_string(n - 1) + " " + to_string(m - 1));
+        for (auto x : path1)
+        {
+            cout << x << "  ->  ";
+        }
+        cout << endl;
+    }
+
     return 0;
 }
