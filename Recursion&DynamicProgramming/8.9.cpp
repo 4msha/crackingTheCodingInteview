@@ -1,30 +1,51 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void parens(int l, int r, string temp, vector<string> &result)
+// void parens(int l, int r, string temp, vector<string> &result)
+// {
+//     //  cout << l << "  " << r << endl;
+//     if (l == 0 && r == 0)
+//     {
+//         cout << " hehe  " << temp << endl;
+//         result.emplace_back(temp);
+//         return;
+//     }
+
+//     if (l > 0)
+//     {
+//         parens(l - 1, r, temp + "(", result);
+//     }
+//     else
+//     {
+//         if (l > 0)
+//         {
+//             parens(l - 1, r, temp + "(", result);
+//         }
+
+//         if (r > l)
+//         {
+//             parens(l, r - 1, temp + ")", result);
+//         }
+//     }
+// }
+
+void solve(int n, int l, int r, string temp, vector<string> &ans)
 {
-    //  cout << l << "  " << r << endl;
-    if (l == 0 && r == 0)
+
+    if (l == n && r == n)
     {
-        result.emplace_back(temp);
+        ans.emplace_back(temp);
         return;
     }
 
-    if (l == r)
+    if (l < n)
     {
-        parens(l - 1, r, temp + "(", result);
+        solve(n, l + 1, r, temp + "(", ans);
     }
-    else
-    {
-        if (l != 0)
-        {
-            parens(l - 1, r, temp + "(", result);
-        }
 
-        if (r != 0)
-        {
-            parens(l, r - 1, temp + ")", result);
-        }
+    if (r < l)
+    {
+        solve(n, l, r + 1, temp + ")", ans);
     }
 }
 
@@ -32,14 +53,26 @@ int main()
 {
     int n;
     cin >> n;
-    vector<string> result;
+    // vector<string> result;
 
-    parens(n, n, "", result);
+    // parens(n, n, "", result);
 
-    for (auto &x : result)
+    // for (auto x : result)
+    // {
+    //     cout << x << endl;
+    // }
+
+    vector<string> ans;
+
+    solve(n, 0, 0, "", ans);
+
+    cout << " \n -----------------------------------------------------------\n";
+
+    for (auto x : ans)
     {
-        cout << x << endl;
+        cout << x << "   ";
     }
+    cout << endl;
 
     return 0;
 }
