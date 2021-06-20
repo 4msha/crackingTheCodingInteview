@@ -1,3 +1,6 @@
+
+// filling matrix so sum across row and column and diagnals is same
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -5,14 +8,12 @@ void solveOdd(vector<vector<int>> &res, int i, int j, int n, int num)
 {
     if (i < 0 || i >= n || j < 0 || j >= n)
     {
-        // cout << " hmmmm\n";
         return;
     }
 
     res[i][j] = num;
     if (num == pow(n, 2))
     {
-        // cout << " hit\n";
         return;
     }
     int x, y;
@@ -21,7 +22,6 @@ void solveOdd(vector<vector<int>> &res, int i, int j, int n, int num)
     {
         if (res[i - 1][j + 1] == 0)
         {
-            //cout << "case 11\n";
             x = i - 1;
             y = j + 1;
         }
