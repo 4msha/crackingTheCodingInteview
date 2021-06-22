@@ -39,7 +39,7 @@ int main()
     display(root);
     //since the tree is a BST so isBalanced must return true
     if (isBalanced(root))
-        cout << "Tree is Balances\n";
+        cout << "Tree is Balanced\n";
     else
         cout << "Tree is Not Balanced\n";
     return 0;

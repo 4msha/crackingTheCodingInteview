@@ -13,9 +13,9 @@ int multiply(int small, int big)
     int half = multiply(s, big);
     if (small % 2 == 0)
     {
-        return 2 * half;
+        return half + half;
     }
-    return 2 * half + big;
+    return half + half + big;
 }
 int main()
 {
