@@ -25,16 +25,19 @@ Tree *hero(vector<int> &vec, int l, int r, Tree *parent)
     if (r <= l)
         return NULL;
     int mid = l + (r - l) / 2;
+    cout << mid << endl;
     Tree *root = new Tree(vec[mid]);
+    cout << root->val << endl;
     root->parent = parent;
     root->left = hero(vec, l, mid, root);
     root->right = hero(vec, mid + 1, r, root);
     return root;
 }
 
-void createBST(vector<int> vec, Tree *root)
+Tree *createBST(vector<int> vec)
 {
-    root = hero(vec, 0, vec.size(), NULL);
+    return hero(vec, 0, vec.size(), NULL);
+    // cout << "  bst  " << root->val;
 }
 
 Tree *findNextNode(Tree *root)
@@ -74,16 +77,17 @@ int main()
 {
     vector<int> vec{1, 2, 3, 4, 9, 8, 7, 6, 5, 13, 9};
     Tree *root;
-    createBST(vec, root);
+    root = createBST(vec);
     cout << "Displaying Tree\n";
+    cout << root->val << endl;
     display(root);
     // next node is the left most child of right child
-    int random = (rand() % vec.size());
-    Tree *temp = randomNode(root, random);
+    // int random = (rand() % vec.size());
+    // Tree *temp = randomNode(root, random);
 
-    Tree *ans = findNextNode(temp->right);
+    Tree *ans = findNextNode(root->right->right);
 
-    cout << "Next Node of " << temp->val << " is " << ans->val << endl;
+    cout << "Next Node of " << root->val << " is " << ans->val << endl;
 
     return 0;
 }

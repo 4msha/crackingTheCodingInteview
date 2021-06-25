@@ -71,9 +71,9 @@ int main()
     cin >> n;
     vector<int> ans;
     vector<vector<int>> prerequisites;
-    int choice;
+    int choice = 1;
 
-    while (1)
+    while (choice != 0)
     {
         cout << "if theres a pair enter 1 else 0\n";
         cin >> choice;
